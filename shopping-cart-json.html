@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Shopping Cart</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+		<style>
+			.item{
+				border: 1px solid red;
+				padding: 20px;
+				width: 300px;
+				float: left;
+			}
+			#output {
+				clear: both;
+				border: 1px solid green;
+				padding: 30px;
+			}
+			#checkoutdiv {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="checkoutdiv">
+			Subtotal <span class="items"></span>(items) : <span class="total"></span><span class="btn btn-primary">Proceed to Checkout</span>
+		</div>
+		<div class="item"><h3>SALT - 10oz</h3><img src="http://placehold.it/350x150" class="img-fluid">
+			<div>
+				Product's information description of why this product is the best product on the planet
+				<a href="#" class="productItem" data-name="salt" data-size="10oz" data-price="500" data-id="1">
+					Add to Cart
+				</a>
+			</div>
+		</div>
+		<div class="item"><h3>PEPPER - 10oz</h3><img src="http://placehold.it/350x150" class="img-fluid">
+			<div>
+				Product's information description of why this product is the best product on the planet
+				<a href="#" class="productItem" data-name="pepper" data-size="10oz" data-price="400" data-id="2">
+					Add to Cart
+				</a>
+			</div>
+		</div>
+		<div class="item"><h3>GARLIC - 5oz</h3><img src="http://placehold.it/350x150" class="img-fluid">
+			<div>
+				Product's information description of why this product is the best product on the planet
+				<a href="#" class="productItem" data-name="garlic" data-size="5oz" data-price="350" data-id="3">
+					Add to Cart
+				</a>
+			</div>
+		</div>
+		<div class="item"><h3>ORANGE - 6oz</h3><img src="http://placehold.it/350x150" class="img-fluid">
+			<div>
+				Product's information description of why this product is the best product on the planet
+				<a href="#" class="productItem" data-name="orange-pepper" data-size="6oz" data-price="500" data-id="4">
+					Add to Cart
+				</a>
+			</div>
+		</div>
+		<div class="item"><h3>PAPRIKA - 4oz</h3><img src="http://placehold.it/350x150" class="img-fluid">
+			<div>
+				Product's information description of why this product is the best product on the planet
+				<a href="#" class="productItem" data-name="paprika" data-size="4oz" data-price="600" data-id="5">
+					Add to Cart
+				</a>
+			</div>
+		</div>
+		<div class="item"><h3>AWESOME - 3oz</h3><img src="http://placehold.it/350x150" class="img-fluid">
+			<div>
+				Product's information description of why this product is the best product on the planet
+				<a href="#" class="productItem" data-name="awesome-spice" data-size="3oz" data-price="1000" data-id="6">
+					Add to Cart
+				</a>
+			</div>
+		</div>
+		<div id="output">
+			
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous">
+		</script>
+		<script>
+		var shopcart = [];
+		$(document).ready(function(){
+			outputCart();
+			$(".productItem").click(function(event){
+			event.preventDefault();
+				var iteminfo = $(this.dataset)[0];
+				iteminfo.qty = 1;
+				var itemincart = false;
+				$.each(shopcart, function(index, value){
+					//console.log(index + " " + value);
+						if(value.id == iteminfo.id){
+							value.qty = parseInt(value.qty) + parseInt(iteminfo.qty);
+							itemincart = true;
+						}
+				})
+				if(!itemincart){
+					shopcart.push(iteminfo);
+				}
+				sessionStorage["shopcart"] = JSON.stringify(shopcart);
+					outputCart();
+				
+		})
+		function outputCart(){
+			if(sessionStorage["shopcart"] != null){
+				shopcart = JSON.parse(sessionStorage["shopcart"].toString());
+				console.log(sessionStorage["shopcart"]);
+				$('#checkoutdiv').show();
+			}
+				var holderHTML = '';
+				var total = 0;
+				var itemCount = 0;
+				$.each(shopcart, function(index, value){
+					console.log(value);
+					var subtotal = value.qty * value.price;
+					total += subtotal;
+					itemCount += value.qty;
+					holderHTML += '<div>Item ' + value.name + ' Quantity: ' + value.qty + ' Price: ' + formatMoney(value.price) + ' Id: ' + value.id + ' Subtotal: ' + formatMoney(subtotal) + '</div>';
+				})
+				holderHTML += '<div>' + formatMoney(total) + '</div>';
+				$('#output').html(holderHTML);
+				$('.total').html(formatMoney(total));
+				$('.items').html(itemCount);
+		}
+		function formatMoney(n){
+			return '$' + (n / 100).toFixed(2);
+		}
+		})
+		</script>
+	</body>
+</html>
