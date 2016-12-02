@@ -1,0 +1,68 @@
+<!-- Nested Row Starts -->
+<div class="row">
+    <!-- Logo Starts -->
+    <div class="col-md-4 col-xs-12">
+        <div id="logo">
+            <a href="index.html"><img src="images/logo-main.png" title="Grocery Shoppe" alt="Grocery Shoppe" class="img-responsive" /></a>
+        </div>
+    </div>
+    <!-- Logo Ends -->
+    <!-- Header Right Starts -->
+    <div class="col-md-8 col-xs-12">
+        <div class="row header-top">
+            <!-- Header Links Starts -->
+            <div class="col-md-9 col-xs-12">
+                <div class="header-links">
+                    <ul class="list-unstyled list-inline pull-left">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Wish List(0)</a></li>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="cart.html">Shopping Cart</a></li>
+                        <li><a href="#">Checkout</a></li>
+                        <li><a href="register.html">Register</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Header Links Ends -->
+            <!-- Currency & Languages Starts -->
+            <di
+            <!-- Currency & Languages Ends -->
+        </div>
+        <div class="row">
+            <!-- Search Starts -->
+            <div class="col-md-7 col-xs-12">
+                <div id="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-lg" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-lg" type="button">
+                            <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Search Ends -->
+            <!-- Shopping Cart Starts -->
+            <div class="col-md-5 col-xs-12">
+                <div id="cart" class="btn-group btn-block">
+                    <button type="button" data-toggle="dropdown" class="btn btn-block btn-lg dropdown-toggle">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="hidden-xs">Cart:</span>
+                    <span id="cart-total">0 item(s) - $0.00</span>
+                    <i class="fa fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <p class="text-center">Your shopping cart is empty!</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Shopping Cart Ends -->
+        </div>
+    </div>
+    <!-- Header Right Ends -->
+</div>
+<!-- Nested Row Ends -->
